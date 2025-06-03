@@ -103,7 +103,7 @@ public class Main {
                 System.out.println("Lista Ordenada pelo Shell Sort: ");
                 System.out.println(Arrays.toString(lista));
             }
-            if (op == 6) {  dsffsfd
+            if (op == 6) { 
                 bogoSort(lista);
                 System.out.println("Lista Ordenada pelo Bogo Sort: ");
                 System.out.println(Arrays.toString(lista));
