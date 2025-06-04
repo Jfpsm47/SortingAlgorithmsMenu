@@ -25,7 +25,13 @@ public class Main {
             System.out.println(" 8 - Radix Sort");
             System.out.println(" 9 - Bucket Sort");
             System.out.println(" 10 - Tim Sort");
+            System.out.println(" 11 - Insertion Sort");
+            System.out.println(" 12 - Collections Sort");
+            System.out.println(" 13 - Merge Sort");
+            System.out.println(" 14 - Heap Sort");
             System.out.println(" 15 - Sair");
+
+            System.out.println("Digite a opção: ");
 
             op = input.nextInt();
 
@@ -103,7 +109,7 @@ public class Main {
                 System.out.println("Lista Ordenada pelo Shell Sort: ");
                 System.out.println(Arrays.toString(lista));
             }
-            if (op == 6) { 
+            if (op == 6) {
                 bogoSort(lista);
                 System.out.println("Lista Ordenada pelo Bogo Sort: ");
                 System.out.println(Arrays.toString(lista));
@@ -139,6 +145,40 @@ public class Main {
             if (op == 10) {
                 timSort(lista);
                 System.out.println("Lista Ordenada pelo Tim Sort: ");
+                System.out.println(Arrays.toString(lista));
+            }
+            if (op == 11){
+                for (int i = 1; i < lista.length; i++) {
+                    int key = lista[i];
+                    int j = i - 1;
+                    while (j >= 0 && lista[j] > key) {
+                        lista[j + 1] = lista[j];
+                        j--;
+                    }
+                    lista[j + 1] = key;
+                }
+                System.out.println("Lista Ordenada pelo Insertion Sort: ");
+                System.out.println(Arrays.toString(lista));
+            }
+            if (op == 12){
+            ArrayList<Integer> listaArray = new ArrayList<>();
+            for (int num : lista) {
+                  listaArray.add(num);
+                }
+
+                Collections.sort(listaArray);
+
+                System.out.println("Lista Ordenada pelo Collections Sort: ");
+                System.out.println(listaArray);
+            }
+            if (op == 13){
+                mergeSort(lista, 0, lista.length - 1);
+                System.out.println("Lista Ordenada pelo Merge Sort: ");
+                System.out.println(Arrays.toString(lista));
+            }
+            if (op == 14){
+                heapSort(lista);
+                System.out.println("Lista Ordenada pelo Heap Sort: ");
                 System.out.println(Arrays.toString(lista));
             }
 
@@ -349,6 +389,89 @@ public class Main {
                     merge(lista, esquerda, mid, direita);
                 }
             }
+        }
+    }
+    public static void mergeSort(int[] lista, int esquerda, int direita) {
+        if (esquerda < direita) {
+            int mid = (esquerda + direita) / 2;
+            mergeSort(lista, esquerda, mid);
+            mergeSort(lista, mid + 1, direita);
+            mergeForMergeSort(lista, esquerda, mid, direita);
+        }
+    }
+
+    public static void mergeForMergeSort(int[] lista, int left, int mid, int right) {
+        int n1 = mid - left + 1;
+        int n2 = right - mid;
+
+        int[] leftArr = new int[n1];
+        int[] rightArr = new int[n2];
+
+        for (int i = 0; i < n1; ++i)
+            leftArr[i] = lista[left + i];
+        for (int j = 0; j < n2; ++j)
+            rightArr[j] = lista[mid + 1 + j];
+
+        int i = 0, j = 0;
+        int k = left;
+
+        while (i < n1 && j < n2) {
+            if (leftArr[i] <= rightArr[j]) {
+                lista[k++] = leftArr[i++];
+            } else {
+                lista[k++] = rightArr[j++];
+            }
+        }
+
+        while (i < n1) {
+            lista[k++] = leftArr[i++];
+        }
+
+        while (j < n2) {
+            lista[k++] = rightArr[j++];
+        }
+    }
+
+    public static void heapSort(int[] lista) {
+        int n = lista.length;
+
+        // Constrói o heap (reorganiza o array)
+        for (int i = n / 2 - 1; i >= 0; i--)
+            heapify(lista, n, i);
+
+        // Extrai elementos do heap um por um
+        for (int i = n - 1; i > 0; i--) {
+            // Move a raiz atual para o final
+            int temp = lista[0];
+            lista[0] = lista[i];
+            lista[i] = temp;
+
+            // Chama heapify na heap reduzida
+            heapify(lista, i, 0);
+        }
+    }
+
+    public static void heapify(int[] lista, int n, int i) {
+        int maior = i; // Inicializa o maior como raiz
+        int esquerda = 2 * i + 1;
+        int direita = 2 * i + 2;
+
+        // Se o filho da esquerda for maior que a raiz
+        if (esquerda < n && lista[esquerda] > lista[maior])
+            maior = esquerda;
+
+        // Se o filho da direita for maior que o maior até agora
+        if (direita < n && lista[direita] > lista[maior])
+            maior = direita;
+
+        // Se o maior não for a raiz
+        if (maior != i) {
+            int swap = lista[i];
+            lista[i] = lista[maior];
+            lista[maior] = swap;
+
+            // Recursivamente aplica o heapify na subárvore afetada
+            heapify(lista, n, maior);
         }
     }
 }
