@@ -29,7 +29,8 @@ public class Main {
             System.out.println(" 12 - Collections Sort");
             System.out.println(" 13 - Merge Sort");
             System.out.println(" 14 - Heap Sort");
-            System.out.println(" 15 - Sair");
+            System.out.println(" 15 - Cocktail Sort");
+            System.out.println(" 16 - Sair");
 
             System.out.println("Digite a opção: ");
 
@@ -181,8 +182,49 @@ public class Main {
                 System.out.println("Lista Ordenada pelo Heap Sort: ");
                 System.out.println(Arrays.toString(lista));
             }
+            if(op == 15){
+                cocktailSort(lista);
+                System.out.println("Lista ordenada pelo Cocktail Sort: ");
+                System.out.println(Arrays.toString(lista));
+            }
 
-        } while (op != 15);
+        } while (op != 16);
+    }
+
+    public static void cocktailSort(int[] lista){
+        boolean trocado = true;
+        int inicio = 0;
+        int fim = lista.length - 1;
+
+        while (trocado){
+
+            trocado = false;
+
+            for (int i  = inicio; i < fim; i++){
+                if(lista[i] > lista[i + 1]){
+                    int aux = lista[i];
+                    lista[i] = lista[i + 1];
+                    lista[i+1] = aux;
+                    trocado = true;
+                }
+            }
+            if(!trocado){
+                break;
+            }
+
+            trocado = false;
+            fim--;
+
+            for (int i = fim; i > inicio; i--){
+                if(lista[i] < lista[i - 1]){
+                    int aux = lista[i];
+                    lista[i] = lista[i - 1];
+                    lista[i - 1] = aux;
+                    trocado = true;
+                }
+            }
+            inicio++;
+        }
     }
 
     public static void quickSort(int[] lista, int inicio, int fim) {
@@ -248,7 +290,6 @@ public class Main {
         }
         return true;
     }
-
 
     public static int getMax(int[] lista) {
         int mx = lista[0];
@@ -339,6 +380,7 @@ public class Main {
             }
         }
     }
+
     public static void insertionSort(int[] lista, int esquerda, int direita){
         for(int i = esquerda + 1; i <= direita; i++){
             int temp = lista[i];
@@ -391,6 +433,7 @@ public class Main {
             }
         }
     }
+
     public static void mergeSort(int[] lista, int esquerda, int direita) {
         if (esquerda < direita) {
             int mid = (esquerda + direita) / 2;
@@ -475,14 +518,3 @@ public class Main {
         }
     }
 }
-
-// TODO: insertionSort
-// TODO: mergeSort
-// TODO: shellSort
-// TODO: collectionsSort
-// TODO: bogoSort
-// TODO: heapSort
-// TODO: timSort
-// TODO: bucketSort
-// TODO: radixSort
-// TODO: gnomeSort
