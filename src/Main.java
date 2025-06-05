@@ -225,23 +225,22 @@ public class Main {
         }
     }
 
-    public static void quickSort(int[] lista, int esquerda, int  direita) {
-        if (esquerda < direita){
-            int p = particionar(lista,esquerda,direita);
+    public static void quickSort(int[] lista, int esquerda, int direita) {
+        if (esquerda < direita) {
+            int p = particionar(lista, esquerda, direita);
 
             quickSort(lista, esquerda, p - 1);
-            quickSort(lista, p, direita );
+            quickSort(lista, p + 1, direita);
         }
     }
 
-    public static int particionar(int[] lista, int esquerda, int direita){
+    public static int particionar(int[] lista, int esquerda, int direita) {
         int pivo = lista[direita];
         int i = esquerda - 1;
 
-        for (int j = esquerda; j < direita; j++){
-            if(lista[j] < pivo){
+        for (int j = esquerda; j < direita; j++) {
+            if (lista[j] < pivo) {
                 i++;
-
                 int aux = lista[i];
                 lista[i] = lista[j];
                 lista[j] = aux;
