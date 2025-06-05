@@ -71,10 +71,8 @@ public class Main {
             }
 
             if (op == 3) {
-                int inicio = 0;
-                int fim = lista.length - 1;
 
-                quickSort(lista, inicio, fim);
+                quickSort(lista, 0, lista.length - 1);
                 System.out.println("Lista Ordenada pelo Quick Sort: ");
                 System.out.println(Arrays.toString(lista));
             }
@@ -143,7 +141,7 @@ public class Main {
                 System.out.println("Lista Ordenada pelo Bucket Sort: ");
                 System.out.println(Arrays.toString(lista));
             }
-            if (op == 10) {
+            if (op == 10){
                 timSort(lista);
                 System.out.println("Lista Ordenada pelo Tim Sort: ");
                 System.out.println(Arrays.toString(lista));
@@ -182,7 +180,7 @@ public class Main {
                 System.out.println("Lista Ordenada pelo Heap Sort: ");
                 System.out.println(Arrays.toString(lista));
             }
-            if(op == 15){
+            if(op == 15) {
                 cocktailSort(lista);
                 System.out.println("Lista ordenada pelo Cocktail Sort: ");
                 System.out.println(Arrays.toString(lista));
@@ -227,30 +225,34 @@ public class Main {
         }
     }
 
-    public static void quickSort(int[] lista, int inicio, int fim) {
-        if (inicio < fim) {
-            int pivo = lista[fim];
-            int i = inicio - 1;
+    public static void quickSort(int[] lista, int esquerda, int  direita) {
+        if (esquerda < direita){
+            int p = particionar(lista,esquerda,direita);
 
-            for (int j = inicio; j < fim; j++) {
-                if (lista[j] <= pivo) {
-                    i++;
-                    int aux = lista[i];
-                    lista[i] = lista[j];
-                    lista[j] = aux;
-                }
-            }
-
-            int aux = lista[i + 1];
-            lista[i + 1] = lista[fim];
-            lista[fim] = aux;
-
-            int indicePivo = i + 1;
-
-            quickSort(lista, inicio, indicePivo - 1);
-            quickSort(lista, indicePivo + 1, fim);
-
+            quickSort(lista, esquerda, p - 1);
+            quickSort(lista, p, direita );
         }
+    }
+
+    public static int particionar(int[] lista, int esquerda, int direita){
+        int pivo = lista[direita];
+        int i = esquerda - 1;
+
+        for (int j = esquerda; j < direita; j++){
+            if(lista[j] < pivo){
+                i++;
+
+                int aux = lista[i];
+                lista[i] = lista[j];
+                lista[j] = aux;
+            }
+        }
+
+        int aux = lista[i + 1];
+        lista[i + 1] = lista[direita];
+        lista[direita] = aux;
+
+        return i + 1;
     }
 
     public static void shellSort(int[] lista) {
